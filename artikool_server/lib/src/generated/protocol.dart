@@ -11,6 +11,7 @@ import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
 import 'article_class.dart' as _i3;
 import 'example.dart' as _i4;
+import 'package:artikool_server/src/generated/article_class.dart' as _i5;
 export 'article_class.dart';
 export 'example.dart';
 
@@ -101,6 +102,10 @@ class Protocol extends _i1.SerializationManagerServer {
     }
     if (t == _i1.getType<_i4.Example?>()) {
       return (data != null ? _i4.Example.fromJson(data, this) : null) as T;
+    }
+    if (t == List<_i5.Article>) {
+      return (data as List).map((e) => deserialize<_i5.Article>(e)).toList()
+          as dynamic;
     }
     try {
       return _i2.Protocol().deserialize<T>(data, t);

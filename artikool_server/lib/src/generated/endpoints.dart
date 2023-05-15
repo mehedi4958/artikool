@@ -9,6 +9,7 @@
 import 'package:serverpod/serverpod.dart' as _i1;
 import '../endpoints/artikool_endpoint.dart' as _i2;
 import '../endpoints/example_endpoint.dart' as _i3;
+import 'package:artikool_server/src/generated/article_class.dart' as _i4;
 
 class Endpoints extends _i1.EndpointDispatch {
   @override
@@ -33,14 +34,58 @@ class Endpoints extends _i1.EndpointDispatch {
       methodConnectors: {
         'getArticles': _i1.MethodConnector(
           name: 'getArticles',
-          params: {},
+          params: {
+            'keyword': _i1.ParameterDescription(
+              name: 'keyword',
+              type: _i1.getType<String?>(),
+              nullable: true,
+            )
+          },
           call: (
             _i1.Session session,
             Map<String, dynamic> params,
           ) async =>
-              (endpoints['artikool'] as _i2.ArtikoolEndpoint)
-                  .getArticles(session),
-        )
+              (endpoints['artikool'] as _i2.ArtikoolEndpoint).getArticles(
+            session,
+            keyword: params['keyword'],
+          ),
+        ),
+        'addArticle': _i1.MethodConnector(
+          name: 'addArticle',
+          params: {
+            'article': _i1.ParameterDescription(
+              name: 'article',
+              type: _i1.getType<_i4.Article>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['artikool'] as _i2.ArtikoolEndpoint).addArticle(
+            session,
+            params['article'],
+          ),
+        ),
+        'updateArticle': _i1.MethodConnector(
+          name: 'updateArticle',
+          params: {
+            'article': _i1.ParameterDescription(
+              name: 'article',
+              type: _i1.getType<_i4.Article>(),
+              nullable: false,
+            )
+          },
+          call: (
+            _i1.Session session,
+            Map<String, dynamic> params,
+          ) async =>
+              (endpoints['artikool'] as _i2.ArtikoolEndpoint).updateArticle(
+            session,
+            params['article'],
+          ),
+        ),
       },
     );
     connectors['example'] = _i1.EndpointConnector(
