@@ -62,6 +62,26 @@ class MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  addArticle() async {
+    var article = Article(
+      title: 'Flutter with serverpod',
+      content: 'This is a coll article for serverpod',
+      publishedOn: DateTime.now(),
+      isPrime: true,
+    );
+
+    try {
+      var result = await client.artikool.addArticle(article);
+      if (result) {
+        setState(() {
+          _resultMessage = 'article added :)';
+        });
+      }
+    } on Exception catch (e) {
+      debugPrint(e.toString());
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
