@@ -84,6 +84,21 @@ class MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  fetchArticle() async {
+    try {
+      var result = await client.artikool.getArticles(keyword: _textEditingController.text);
+      if (result.isNotEmpty) {
+        setState(() {
+          _resultMessage = '${result.length} article(s) fetched';
+        });
+      }
+    } on Exception catch (e) {
+      setState(() {
+        _errorMessage = '$e';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,7 +121,7 @@ class MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: ElevatedButton(
-                onPressed: addArticle,
+                onPressed: fetchArticle,
                 child: const Text('Send to Server'),
               ),
             ),
