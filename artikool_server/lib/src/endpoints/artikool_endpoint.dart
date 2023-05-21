@@ -7,7 +7,7 @@ class ArtikoolEndpoint extends Endpoint {
     return await Article.find(
       session,
       where: (t) =>
-          keyword != null ? t.title.like('%keyword%') : Constant(true),
+          keyword != null ? t.title.like('%$keyword%') : Constant(true),
     );
   }
 
@@ -21,5 +21,14 @@ class ArtikoolEndpoint extends Endpoint {
   Future<bool> updateArticle(Session session, Article article) async {
     var result = await Article.update(session, article);
     return result;
+  }
+
+  /// delete article
+  Future<bool> deleteArticle(Session session, int id) async {
+    var result = await Article.delete(
+      session,
+      where: (t) => t.id.equals(id),
+    );
+    return result == 1;
   }
 }

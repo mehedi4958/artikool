@@ -7,7 +7,7 @@ import 'package:serverpod_flutter/serverpod_flutter.dart';
 // The client is set up to connect to a Serverpod running on a local server on
 // the default port. You will need to modify this to connect to staging or
 // production servers.
-var client = Client('http://192.168.1.104:8080/')
+var client = Client('http://localhost:8080/')
   ..connectivityMonitor = FlutterConnectivityMonitor();
 
 void main() {
@@ -78,7 +78,9 @@ class MyHomePageState extends State<MyHomePage> {
         });
       }
     } on Exception catch (e) {
-      debugPrint(e.toString());
+      setState(() {
+        _errorMessage = '$e';
+      });
     }
   }
 
@@ -104,7 +106,7 @@ class MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: const EdgeInsets.only(bottom: 16.0),
               child: ElevatedButton(
-                onPressed: _callHello,
+                onPressed: addArticle,
                 child: const Text('Send to Server'),
               ),
             ),
