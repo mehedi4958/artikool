@@ -41,6 +41,13 @@ class _EndpointArtikool extends _i1.EndpointRef {
         'updateArticle',
         {'article': article},
       );
+
+  /// delete article
+  _i2.Future<bool> deleteArticle(int id) => caller.callServerEndpoint<bool>(
+        'artikool',
+        'deleteArticle',
+        {'id': id},
+      );
 }
 
 class _EndpointExample extends _i1.EndpointRef {
